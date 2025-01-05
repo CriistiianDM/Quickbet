@@ -1,0 +1,13 @@
+
+@media screen and (min-width: 900px) {
+    .diplay-desktop {
+        display: none;
+    }    
+}
+
+
+@media screen and (max-width: 899px) {
+    .diplay-mobile {
+        display: none;
+    }    
+}
