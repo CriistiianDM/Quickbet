@@ -22,6 +22,7 @@ export default ({ children }) => {
             <Banner />
             <Box sx={styles.containerLayout}>
                 <Filter />
+                {children}
             </Box>
         </React.Fragment>
     )

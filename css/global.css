@@ -32,6 +32,12 @@
     object-fit: cover;
 }
 
+.container-sections {
+    display: flex;
+    width: -webkit-fill-available;
+    max-width: calc(100% - 260px);
+}
+
 @media screen and (min-width: 900px) {
     .diplay-desktop {
         display: none;
