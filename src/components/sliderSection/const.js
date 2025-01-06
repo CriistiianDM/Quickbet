@@ -1,13 +1,76 @@
 export default {
     settings: {
-        dots: true, // Muestra los puntos de navegación
-        infinite: false, // Ciclo infinito
-        speed: 500, // Velocidad de transición (ms)
-        slidesToShow: 6, // Número de slides visibles
-        slidesToScroll: 1, // Número de slides que avanza al hacer scroll
-        arrows: true, 
+        infinite: false,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        arrows: false,
+        variableWidth: true,
+        responsive: [
+          {
+            breakpoint: 1290,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              variableWidth: true,
+            }
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            }
+          },
+          {
+            breakpoint: 820,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 500,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 380,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
     },
     sliders: [
+        {
+            img: '/assets/products/1.png',
+            title: 'Shrek 5',
+            description: 'August 1, 2024',
+            porcentage: 0.8,
+        },
+        {
+            img: '/assets/products/1.png',
+            title: 'Shrek 5',
+            description: 'August 1, 2024',
+            porcentage: 0.8,
+        },
+        {
+            img: '/assets/products/1.png',
+            title: 'Shrek 5',
+            description: 'August 1, 2024',
+            porcentage: 0.8,
+        },
         {
             img: '/assets/products/1.png',
             title: 'Shrek 5',

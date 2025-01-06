@@ -5,18 +5,18 @@ export default {
         slidesToScroll: 1,
         responsive: [
           {
-            breakpoint: 1024,
+            breakpoint: 1025,
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
-              infinite: true,
+              infinite: false,
               dots: false
             }
           },
           {
             breakpoint: 600,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 1,
               slidesToScroll: 2
             }
           },

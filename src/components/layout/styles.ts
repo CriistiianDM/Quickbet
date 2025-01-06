@@ -7,5 +7,8 @@ export const styles: Styles = {
         display: 'flex',
         minHeight: '800px',
         marginTop: '-4px',
+        '@media screen and (max-width: 500px)': {
+            flexDirection: 'column'
+        },
     }
 }
