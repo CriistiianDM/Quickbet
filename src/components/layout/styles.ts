@@ -1,5 +1,6 @@
 interface Styles {
-    containerLayout: object
+    containerLayout: object,
+    containerLayoutMoovie: object
 }
 
 export const styles: Styles = {
@@ -10,5 +11,9 @@ export const styles: Styles = {
         '@media screen and (max-width: 500px)': {
             flexDirection: 'column'
         },
+    },
+    containerLayoutMoovie: {
+        display: 'flex',
+        minHeight: '700px',    
     }
 }

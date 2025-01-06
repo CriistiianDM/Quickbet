@@ -15,7 +15,7 @@ export const styles: Styles = {
         borderRaduis: '10px',
         cursor: 'pointer',
         '@media screen and (max-width: 1290px)': {
-            marginRight: '90px',
+            marginRight: '30px',
         },
         '@media screen and (max-width: 1024px)': {
             marginRight: '20px',
