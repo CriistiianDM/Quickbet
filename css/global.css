@@ -38,6 +38,11 @@
     max-width: calc(100% - 260px);
 }
 
+.container-recomendations {
+    display: flex;
+    width: '100%';   
+}
+
 @media screen and (min-width: 900px) {
     .diplay-desktop {
         display: none;

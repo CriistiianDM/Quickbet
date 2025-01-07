@@ -27,6 +27,13 @@ export const styles: Styles = {
             marginRight: '20px',
         }
     },
+    containerCardRecommendation: {
+        height: '260px', 
+        background: '#3A3A3A',
+        marginRight: 'unset !important',
+        borderBottomLeftRadius: '10px',
+        borderBottomRightRadius: '10px'
+    },
     titlePrimary: { 
         color: '#F6F6F6', 
         fontWeight: 800, 
@@ -56,5 +63,21 @@ export const styles: Styles = {
         width: "100%", 
         margin: "0 auto", 
         paddingLeft: '40px', 
+    },
+    containerSliderRecommendation: {
+        padding: '40px',
+        '& > h4': {
+            marginLeft: '20px'
+        },
+        '& > div > div > div > div': {
+            display: 'flex !important',
+            justifyContent: 'center'
+        }
+    },
+    titlePrimaryContent: {
+        padding: '10px',
+    },
+    contentCard: {
+        padding: 'unset !important',
     }
 }

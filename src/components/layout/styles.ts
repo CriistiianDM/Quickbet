@@ -14,6 +14,6 @@ export const styles: Styles = {
     },
     containerLayoutMoovie: {
         display: 'flex',
-        minHeight: '700px',    
+        // minHeight: '700px',    
     }
 }

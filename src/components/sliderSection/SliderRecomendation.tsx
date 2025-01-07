@@ -37,53 +37,48 @@ export default () => {
 
 const CustomSlider = () => {  
     return (
-      <Box className="container-sections">
-        <div style={styles.containerSlider}>
+      <Box className="container-recomendations">
+        <Box 
+          sx={{
+            ...styles.containerSlider,
+            ...styles.containerSliderRecommendation
+          }}>
             <Typography color="white" sx={{ fontWeight: 700}} variant="h4" gutterBottom>
-              Popular
+              Recommendations
             </Typography>
-            <Slider {...Const.settings}>
+            <Slider {...Const.settingsRecommendation}>
                 {Const.sliders.map((element, index) => (
                     <MediaCard {...{element,index}} key={index} />
                 ))}
             </Slider>
-        </div>
+        </Box>
       </Box>
     );
 };
 
 const MediaCard = ({element}) => {
   return (
-    <Card sx={styles.containerCard}>
+    <Card 
+      sx={...{
+              ...styles.containerCard,
+              ...styles.containerCardRecommendation
+      }}>
       <CardMedia
         sx={{ height: 223 }}
         image={element.img}
         title="green iguana"
       />
-      <CardContent>
-        <Typography sx={styles.titlePrimary} gutterBottom variant="h5" component="div">
+      <CardContent sx={styles.contentCard}>
+        <Typography 
+          sx={{
+            ...styles.titlePrimary,
+            ...styles.titlePrimaryContent
+          }} 
+          gutterBottom 
+          variant="h5" component="div">
           {element.title}
         </Typography>
-        <Typography sx={styles.dateText} variant="body2">
-          {element.description}
-        </Typography>
       </CardContent>
-      <CardActions sx={styles.cardActions}>
-          <Box>
-              <Typography sx={styles.dateText} variant="body2">
-                Rating
-              </Typography>
-              <CircularProgressWithLabel value='90'/>
-          </Box>
-          <Box>
-              <Typography sx={styles.dateText} variant="body2">
-                Favorites
-              </Typography>
-              <IconButton sx={{ color: 'white', fontSize: '20px'}} aria-label="delete" size="large">
-                <FavoriteIcon />
-              </IconButton>
-          </Box>
-      </CardActions>
     </Card>
   );
 }
