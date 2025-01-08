@@ -19,6 +19,9 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import CardMedia from '@mui/material/CardMedia';
 
+// Components
+import Login from '../login/Login'
+
 // Const
 const pages = ['Popular', 'Favorites'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,12 +39,14 @@ export default () => {
 const ResponsiveAppBar = () =>  {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [open, setOpen] = React.useState(!false);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+    //setAnchorElUser(event.currentTarget);
+    setOpen(true)
   };
 
   const handleCloseNavMenu = () => {
@@ -147,6 +152,7 @@ const ResponsiveAppBar = () =>  {
           </Box>
         </Toolbar>
       </Container>
+      <Login {...{open, setOpen}}/>
     </AppBar>
   );
 }

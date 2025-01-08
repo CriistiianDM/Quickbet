@@ -43,6 +43,10 @@
     width: '100%';   
 }
 
+.btn-active-login {
+    background: rgba(240, 185, 11, 1) !important;
+}
+
 @media screen and (min-width: 900px) {
     .diplay-desktop {
         display: none;
