@@ -8,7 +8,7 @@ export const styles: Styles = {
         '& .MuiPaper-root': {
             background: 'red',
             width: '95%',
-            maxWidth: '100%',
+            maxWidth: '1300px',
             background: 'rgba(255, 255, 255, 0.15)',
             backdropFilter: 'blur(30px)',
             // opacity: '0.9',

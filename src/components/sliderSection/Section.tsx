@@ -28,14 +28,38 @@ import { styles } from './styles.ts'
  * Banner
  */
 export default () => {
+    const [movies, setMovies] = React.useState([])
+
+    const init = async () => {
+      let data = movies
+      const response = await fetch(`/api/movies`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            'action': 'genre',
+            'value': '28'
+          }
+        })
+      });
+      const result = await response.json()
+      setMovies((prevMovies) => [...prevMovies, ...Object.values(result)]);
+    }
+    
+    React.useMemo(init,[])
+
     return (
         <React.Fragment>
-            <CustomSlider />
+          {
+            movies?.length > 0 && <CustomSlider {...{movies}}/>
+          }
         </React.Fragment>
     )
 }
 
-const CustomSlider = () => {  
+const CustomSlider = ({movies}) => {  
     return (
       <Box className="container-sections">
         <div style={styles.containerSlider}>
@@ -43,7 +67,7 @@ const CustomSlider = () => {
               Popular
             </Typography>
             <Slider {...Const.settings}>
-                {Const.sliders.map((element, index) => (
+                {movies.map((element, index) => (
                     <MediaCard {...{element,index}} key={index} />
                 ))}
             </Slider>
@@ -57,15 +81,15 @@ const MediaCard = ({element}) => {
     <Card sx={styles.containerCard}>
       <CardMedia
         sx={{ height: 223 }}
-        image={element.img}
+        image={`https://image.tmdb.org/t/p/w300${element?.poster_path}`}
         title="green iguana"
       />
       <CardContent>
         <Typography sx={styles.titlePrimary} gutterBottom variant="h5" component="div">
-          {element.title}
+          {element?.title}
         </Typography>
         <Typography sx={styles.dateText} variant="body2">
-          {element.description}
+          {element?.release_date}
         </Typography>
       </CardContent>
       <CardActions sx={styles.cardActions}>
@@ -73,7 +97,7 @@ const MediaCard = ({element}) => {
               <Typography sx={styles.dateText} variant="body2">
                 Rating
               </Typography>
-              <CircularProgressWithLabel value='90'/>
+              <CircularProgressWithLabel value={element?.vote_average}/>
           </Box>
           <Box>
               <Typography sx={styles.dateText} variant="body2">

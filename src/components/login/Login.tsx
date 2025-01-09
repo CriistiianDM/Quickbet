@@ -30,6 +30,9 @@ import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 // Styles
 import { styles } from './styles'
 
+// Firebase
+import { registerUser, loginUser } from "../../../api/libs/auth.ts";
+
 /**
  * Login
  */
@@ -82,6 +85,40 @@ const AlertDialogSlide = ({ open, setOpen}) => {
 }
 
 const ContentDialog = ({setShowLogin}) => {
+    const [showPassword, setShowPassword] = React.useState(true);
+    const [showForm, setShowForm] = React.useState(true);
+    const [email, setEmail] = React.useState(null);
+    const [password, setPassword] = React.useState(null);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+  
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    };
+  
+    const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      try {
+           if (email === null || password === null) return alert("Rellene los campos")
+          const user = await registerUser(email, password);
+          alert(`Cuenta creada para: ${user.email}`);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    const props = {
+      handleSubmit: handleSubmit, 
+      showPassword: showPassword, 
+      setEmail: setEmail, 
+      setPassword: setPassword,
+      setShowPassword: setShowPassword
+    }
+
     return (
         <Box sx={styles.contentDialog}>
           <Box>
@@ -94,12 +131,17 @@ const ContentDialog = ({setShowLogin}) => {
                   </Button>
                 </Box>
                 <Box sx={styles.contentRegister}>
+                   {
+                    showForm ?
                     <form>
-                        <Button variant="contained" disableElevation>
-                            <p>Register with your Email</p>
-                            <MailOutlineOutlinedIcon />
+                        <Button onClick={() => setShowForm(false)} variant="contained" disableElevation>
+                          <p>Register with your Email</p>
+                          <MailOutlineOutlinedIcon />
                         </Button>
                     </form>
+                    :
+                    <Form {...props}/>
+                   }
                 </Box>
                 <Box sx={styles.contentAlerts}>
                   <Typography variant="overline" gutterBottom sx={{ display: 'block', color: '#fff' }}>
@@ -128,16 +170,28 @@ const ContentDialog = ({setShowLogin}) => {
 
 const ContentDialogLogin = ({ setShowLogin }) => {
   const [showPassword, setShowPassword] = React.useState(true);
+  const [email, setEmail] = React.useState(null);
+  const [password, setPassword] = React.useState(null);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+         if (email === null || password === null) return alert("Rellene los campos")
+         const user = await loginUser(email, password);
+         alert(`Bienvenido, ${user.email}`);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const props = {
+    handleSubmit: handleSubmit, 
+    showPassword: showPassword, 
+    setEmail: setEmail, 
+    setPassword: setPassword,
+    setShowPassword: setShowPassword,
+    isSingUp: false
+  }
 
   return (
       <Box sx={styles.contentDialog}>
@@ -151,61 +205,7 @@ const ContentDialogLogin = ({ setShowLogin }) => {
                 </Button>
               </Box>
               <Box sx={styles.contentRegister}>
-                  <form>
-                      <Typography variant="overline" gutterBottom sx={{ display: 'block', color: '#fff' }}>
-                          We love having you back
-                      </Typography>
-                      <FormControl sx={styles.inputForm} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-password"
-                          type={showPassword ? 'text' : 'password'}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label={
-                                  showPassword ? 'hide the password' : 'display the password'
-                                }
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                onMouseUp={handleMouseUpPassword}
-                                edge="end"
-                              >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                          label="Password"
-                        />
-                      </FormControl>
-                      <FormControl sx={styles.inputForm} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-password"
-                          type={showPassword ? 'text' : 'password'}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label={
-                                  showPassword ? 'hide the password' : 'display the password'
-                                }
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                onMouseUp={handleMouseUpPassword}
-                                edge="end"
-                              >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                          label="Password"
-                        />
-                      </FormControl>
-                      <Button variant="contained" disableElevation>
-                          <p>Continue</p>
-                          <ConfirmationNumberOutlinedIcon />
-                      </Button>
-                  </form>
+                  <Form {...props}/>
               </Box>
               <Box sx={styles.contentAlerts}>
                 <Typography variant="overline" gutterBottom sx={{ display: 'block', color: '#fff' }}>
@@ -229,5 +229,97 @@ const ContentDialogLogin = ({ setShowLogin }) => {
               />
         </Box>
       </Box>
+  )
+}
+
+const Form = ({ 
+  handleSubmit, 
+  showPassword, 
+  setEmail, 
+  setPassword,
+  setShowPassword,
+  isSingUp = true
+}) => {
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  return (
+      <form onSubmit={handleSubmit}>
+          {
+            !isSingUp &&
+            <Typography variant="overline" gutterBottom sx={{ display: 'block', color: '#fff' }}>
+              We love having you back
+            </Typography>
+          }
+          <FormControl sx={styles.inputForm} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Email</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label={
+                      showPassword ? 'hide the password' : 'display the password'
+                    }
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              onChange={(e) => setEmail(e.target.value)}
+              label="Email"
+            />
+          </FormControl>
+          <FormControl sx={styles.inputForm} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label={
+                      showPassword ? 'hide the password' : 'display the password'
+                    }
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              onChange={(e) => setPassword(e.target.value)}
+              label="Password"
+            />
+          </FormControl>
+          <Button type="submit" variant="contained" disableElevation>
+            {
+              (!isSingUp) ? 
+              (
+                <>
+                  <p>Continue</p>
+                  <ConfirmationNumberOutlinedIcon />
+                </>
+              ) :
+              (
+                <p>Register</p>
+              )
+            }
+          </Button>
+      </form>
   )
 }
