@@ -14,4 +14,7 @@ or
    npm i && npm run dev
 ```
 
-## Tecnologic
+## Technologies
+* Typescript
+* Material IU
+* NEXT JS
