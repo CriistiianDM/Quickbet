@@ -31,7 +31,7 @@ import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import { styles } from './styles'
 
 // Firebase
-import { registerUser, loginUser } from "../../../api/libs/auth.ts";
+import { registerUser, loginUser } from "../../../api/libs/auth";
 
 /**
  * Login

@@ -30,7 +30,7 @@ export default ({ data }) => {
         <React.Fragment>
             <Box 
                 sx={
-                    ...{
+                    {
                         ...styles.containerBanner, 
                         background: `url(https://image.tmdb.org/t/p/w1280${data?.backdrop_path})`
                     }
@@ -58,7 +58,7 @@ export default ({ data }) => {
                     </Box>
                 </Box>
             </Box>
-            <Recomendation {...data}/>
+            <Recomendation {...data} />
         </React.Fragment>
     )
 }

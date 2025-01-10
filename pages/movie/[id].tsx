@@ -5,7 +5,7 @@ import React from 'react'
 import { useRouter } from 'next/router';
 
 // Components
-import Layout from '../../src/components/layout/LayoutMoovie.tsx'
+import Layout from '../../src/components/layout/LayoutMoovie'
 
 // Material IU
 import Typography from '@mui/material/Typography';

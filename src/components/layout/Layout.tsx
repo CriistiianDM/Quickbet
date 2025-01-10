@@ -2,9 +2,9 @@
 import React from 'react'
 
 // Componets
-import Header from '../header/Header.tsx'
-import Banner from '../banner/Banner.tsx'
-import Filter from '../filter/Filter.tsx'
+import Header from '../header/Header'
+import Banner from '../banner/Banner'
+import Filter from '../filter/Filter'
 
 // Material IU
 import Box from '@mui/material/Box';

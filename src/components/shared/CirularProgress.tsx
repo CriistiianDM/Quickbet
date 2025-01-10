@@ -6,7 +6,7 @@ import CircularProgress, {
   } from '@mui/material/CircularProgress';
 
 export default (
-    props: CircularProgressProps & { value: number, sx: object },
+    props: CircularProgressProps & { value: number, sx?: object },
   ) => {
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex', ...props.sx}}>

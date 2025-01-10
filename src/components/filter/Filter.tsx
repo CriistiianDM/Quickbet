@@ -9,7 +9,12 @@ import Typography from '@mui/material/Typography';
 import { styles } from './styles'
 
 // Components
-import {formComponents} from './const.ts'
+import {formComponents} from './const'
+
+type Props = {
+    Component: React.ElementType,
+    slotProps: object
+}
 
 /**
  * Filter
@@ -19,7 +24,7 @@ export default () => {
         <React.Fragment>
             <Box sx={styles.containerFilter}>
                 {
-                    formComponents.content.map((content, index) => {
+                    formComponents.content.map((content: Props, index) => {
                         const { Component, slotProps } = content
                         return (
                             <Component {...slotProps} key={index}/>

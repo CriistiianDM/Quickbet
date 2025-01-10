@@ -22,7 +22,7 @@ import Slider from 'react-slick';
 import Const from './const'
 
 // Styles
-import { styles } from './styles.ts'
+import { styles } from './styles'
 
 // Use Next
 import { useRouter } from 'next/router';
@@ -94,7 +94,7 @@ const MediaCard = ({element}) => {
   return (
     <Card 
       onClick={() => goToMovieDetails(element?.id)}
-      sx={...{
+      sx={{
               ...styles.containerCard,
               ...styles.containerCardRecommendation
       }}>

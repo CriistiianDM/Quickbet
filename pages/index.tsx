@@ -2,7 +2,7 @@
 import React from 'react'
 
 // Components
-import Layout from '../src/components/layout/Layout.tsx'
+import Layout from '../src/components/layout/Layout'
 import Section from '../src/components/sliderSection/Section'
 
 /**

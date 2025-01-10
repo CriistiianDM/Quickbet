@@ -1,10 +1,11 @@
 // React
 import React from 'react'
+import { ReactNode } from 'react';
 
 // Componets
-import Header from '../header/Header.tsx'
-import Banner from '../banner/BannerMoovie.tsx'
-import Filter from '../filter/Filter.tsx'
+import Header from '../header/Header'
+import Banner from '../banner/BannerMoovie'
+import Filter from '../filter/Filter'
 
 // Material IU
 import Box from '@mui/material/Box';
@@ -12,10 +13,15 @@ import Box from '@mui/material/Box';
 // Styles
 import { styles } from './styles'
 
+type Props = {
+    data: object,
+    children?: ReactNode
+}
+
 /***
  * Layout
  */
-export default ({ children, data }) => {
+export default ({ children, data }: Props) => {
     return (
         <React.Fragment>
             <Header />

@@ -28,7 +28,7 @@ const CustomSlider = () => {
       <Box className="container-slider">
         <Slider {...Const.settings}>
             {Const.sliders.map((element, index) => (
-                printSliders(element, index)
+                printSliders(element, index, null)
             ))}
         </Slider>
       </Box>

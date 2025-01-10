@@ -25,7 +25,7 @@ import Slider from 'react-slick';
 import Const from './const'
 
 // Styles
-import { styles } from './styles.ts'
+import { styles } from './styles'
 
 /**
  * Banner
@@ -73,6 +73,7 @@ const CustomSlider = ({movies}) => {
       <Box sx={styles.sliderContainerPrimary}>
         {
           movies.map((section, index) => {
+            const values: any[] = (Object.values(movies[index]))
             return (
               <Box className="container-sections" key={index}>
                 <div style={styles.containerSlider}>
@@ -80,7 +81,7 @@ const CustomSlider = ({movies}) => {
                       {Object.keys(movies[index])[index]}
                     </Typography>
                     <Slider {...Const.settings}>
-                        {(Object.values(movies[index])[index]).map((element, index) => (
+                        {values[index].map((element, index) => (
                             <MediaCard {...{element,index}} key={index} />
                         ))}
                     </Slider>
@@ -123,7 +124,7 @@ const MediaCard = ({element}) => {
               <Typography sx={styles.dateText} variant="body2">
                 Rating
               </Typography>
-              <CircularProgressWithLabel value={element?.vote_average * 10}/>
+              <CircularProgressWithLabel value={Number(element?.vote_average * 10)}/>
           </Box>
           <Box>
               <Typography sx={styles.dateText} variant="body2">

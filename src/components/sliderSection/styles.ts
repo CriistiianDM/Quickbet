@@ -3,7 +3,12 @@ interface Styles {
     titlePrimary: object,
     containerSlider: object,
     dateText: object,
-    cardActions: object
+    cardActions: object,
+    containerSliderRecommendation: object,
+    titlePrimaryContent: object,
+    contentCard: object,
+    sliderContainerPrimary: object,
+    containerCardRecommendation: object
 }
 
 export const styles: Styles = {

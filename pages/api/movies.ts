@@ -11,7 +11,7 @@ export default async function handler(req, res) {
             const response = await filterMovies({data: data});
             const json = await response.json()
             const rest = json?.results ?? json
-            console.log(json,"RES")
+            
             return res.status(200).json({...rest});
         } catch (error) {
             console.log(error,'errr')

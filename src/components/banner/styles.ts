@@ -1,7 +1,10 @@
 interface Styles {
     containerBanner: object,
     containerContentBanner: object,
-    containerRate: object
+    containerRate: object,
+    circular: object,
+    containerActions: object,
+    cardMediaImg: object
 }
 
 export const styles: Styles = {

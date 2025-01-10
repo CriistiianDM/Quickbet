@@ -1,12 +1,17 @@
 interface Styles {
     containerLogin: object,
-    contentDialog: object
+    contentDialog: object,
+    containerBtn: object,
+    activeBtn: object,
+    contentRegister: object,
+    contentAlerts: object,
+    containerMenssage: object,
+    inputForm: object
 }
 
 export const styles: Styles = {
     containerLogin: {
         '& .MuiPaper-root': {
-            background: 'red',
             width: '95%',
             maxWidth: '1300px',
             background: 'rgba(255, 255, 255, 0.15)',
