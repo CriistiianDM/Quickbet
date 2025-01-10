@@ -1,6 +1,7 @@
 import { filterMovies } from '../../api/themoviedb/index';
 
 export default async function handler(req, res) {
+    console.log('Request Method:', req.method); 
     if (req.method === 'POST') {
         try {
             const { data } = req.body
