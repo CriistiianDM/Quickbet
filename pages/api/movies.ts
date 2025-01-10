@@ -10,8 +10,9 @@ export default async function handler(req, res) {
 
             const response = await filterMovies({data: data});
             const json = await response.json()
+            const rest = json?.results ?? json
             console.log(json,"RES")
-            return res.status(200).json({...json?.results});
+            return res.status(200).json({...rest});
         } catch (error) {
             console.log(error,'errr')
             return res.status(500).json({ a:error, error: 'Error fetching data TMDB' });

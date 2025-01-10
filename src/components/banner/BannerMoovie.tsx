@@ -32,7 +32,7 @@ export default ({ data }) => {
                 sx={
                     ...{
                         ...styles.containerBanner, 
-                        background: `url(${data?.sectionImg})`
+                        background: `url(https://image.tmdb.org/t/p/w1280${data?.backdrop_path})`
                     }
                 }>
                     <CardMedia
@@ -44,7 +44,7 @@ export default ({ data }) => {
                     <Box>
                         <CardMedia
                             sx={styles.cardMediaImg}
-                            image={data?.imgMoovie}
+                            image={`https://image.tmdb.org/t/p/w780${data?.poster_path}`}
                             title="green iguana"
                         />
                         <Button variant="contained" endIcon={<PlayArrowIcon />}>
@@ -58,7 +58,7 @@ export default ({ data }) => {
                     </Box>
                 </Box>
             </Box>
-            <Recomendation />
+            <Recomendation {...data}/>
         </React.Fragment>
     )
 }
@@ -67,7 +67,7 @@ const ContentText = ({ data }) => {
     return (
         <Box>
             <Typography color="white" variant="h4" gutterBottom>
-                    {data.title}
+                {data.title}
             </Typography>
             <Box>
                 <Typography variant="overline" gutterBottom sx={{ display: 'block' }}>
@@ -93,7 +93,7 @@ const ContentRate = ({ data }) => {
     return (
         <Box sx={styles.containerRate}>
              <Box>
-                <CircularProgressWithLabel sx={styles.circular} value={'97'} />
+                <CircularProgressWithLabel sx={styles.circular} value={data.vote_average * 10} />
                 <Typography color="white" variant="h5" gutterBottom>
                     Users
                     Score
@@ -110,9 +110,9 @@ const ContentLabels = ({ data }) => {
     return (
         <Box sx={styles.containerActions}>
             {
-                data.actions.length > 0 && 
-                data.actions.map((content,index) => (
-                    <Box key={index}>{content}</Box>
+                data?.spoken_languages?.length > 0 && 
+                data?.spoken_languages?.map((content,index) => (
+                    <Box key={index}>{content.english_name}</Box>
                 ))
             }
         </Box>

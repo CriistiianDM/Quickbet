@@ -36,12 +36,38 @@ type Props = {
 }
 
 export default (props: Props) => {
+    const [genres, setGenres] = React.useState(null)
+
+    const init = async () => {
+        const response = await fetch(`/api/movies`,{
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: {
+              'action': 'listGenre',
+              'value': ''
+            }
+          })
+        });
+        const result = await response.json()
+        setGenres(result.genres);
+    }
+    
+    React.useMemo(init,[])
+    console.log(genres,"genres")
     return (
-        <CustomizedSelects {...props}/>
+      <React.Fragment>
+        {
+          genres?.length > 0 &&
+          <CustomizedSelects {...props} genres={genres}/>
+        }
+      </React.Fragment>
     )
 }
 
-const CustomizedSelects = ({sx}) => {
+const CustomizedSelects = ({sx , genres}) => {
   const [age, setAge] = React.useState('');
   const handleChange = (event: { target: { value: string } }) => {
     setAge(event.target.value);
@@ -55,10 +81,12 @@ const CustomizedSelects = ({sx}) => {
           onChange={handleChange}
           input={<BootstrapInput />}
         >
-          <option aria-label="None" value="__a_">_____________</option>
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          <option aria-label="None" value="_">_____________</option>
+          {
+            genres.map((option, index) => (
+              <option key={index} value={option.id}>{option?.name}</option>
+            ))
+          }
         </NativeSelect>
       </FormControl>
     </div>

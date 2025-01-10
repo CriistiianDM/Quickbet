@@ -1,0 +1,9 @@
+services:
+
+  client:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: frontend_app
+      ports:
+        - "3000:80"

@@ -37,7 +37,11 @@ export const styles: Styles = {
     titlePrimary: { 
         color: '#F6F6F6', 
         fontWeight: 800, 
-        fontSize: '14px'
+        fontSize: '14px',
+        display: '-webkit-box',
+        '-webkit-line-clamp': '1',
+        '-webkitBoxOrient': 'vertical',
+        overflow: 'hidden',
     },
     dateText: { 
         color: '#F6F6F6', 
@@ -75,9 +79,18 @@ export const styles: Styles = {
         }
     },
     titlePrimaryContent: {
-        padding: '10px',
+        padding: '10px 10px 0',
     },
     contentCard: {
         padding: 'unset !important',
+    },
+    sliderContainerPrimary: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '-webkit-fill-available',
+        maxWidth: 'calc(100% - 260px)',
+        '@media screen and (max-width: 500px)': {
+            maxWidth: 'unset',
+        }
     }
 }

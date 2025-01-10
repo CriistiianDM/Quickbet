@@ -22,6 +22,9 @@ import CardMedia from '@mui/material/CardMedia';
 // Components
 import Login from '../login/Login'
 
+// Use Next
+import { useRouter } from 'next/router';
+
 // Const
 const pages = ['Popular', 'Favorites'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -37,6 +40,8 @@ export default () => {
 
 /** Material Components */
 const ResponsiveAppBar = () =>  {
+  const router = useRouter();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(!false);
@@ -62,9 +67,10 @@ const ResponsiveAppBar = () =>  {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <CardMedia
+            onClick={() => {router.push(`/`)}}
             className="diplay-mobile"
             component="img"
-            sx={{ width: 151, margin: '0 55px' }}
+            sx={{ width: 151, margin: '0 55px', cursor: 'pointer' }}
             image="/assets/logo.svg"
             alt="Live from space album cover"
           />
@@ -104,6 +110,7 @@ const ResponsiveAppBar = () =>  {
           </Box>
           {/* Mobile */}
           <CardMedia
+            onClick={() => {router.push(`/`)}}
             className="diplay-desktop"
             component="img"
             sx={{ width: 151, margin: '0 55px' }}

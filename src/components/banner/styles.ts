@@ -10,8 +10,8 @@ export const styles: Styles = {
         width: '100%',
         position: 'relative',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'contain',
+        backgroundSize: 'cover !important',
+        backgroundRepeat: 'no-repeat !important',
         overflow: 'hidden',
         minHeight: '560px',
         '@media screen and (max-width: 500px)': {
@@ -172,6 +172,8 @@ export const styles: Styles = {
     cardMediaImg: {
         width: '305px', 
         height: '395px',
+        padding: '10px',
+        // backgroundSize: 'contain',
         '@media screen and (max-width: 500px)': {
             width: '250px', 
             height: '300px',

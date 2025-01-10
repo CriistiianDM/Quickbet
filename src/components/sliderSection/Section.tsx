@@ -15,6 +15,9 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CircularProgressWithLabel from '../shared/CirularProgress'
 
+// Use Next
+import { useRouter } from 'next/router';
+
 // Slider
 import Slider from 'react-slick';
 
@@ -31,21 +34,24 @@ export default () => {
     const [movies, setMovies] = React.useState([])
 
     const init = async () => {
-      let data = movies
-      const response = await fetch(`/api/movies`,{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data: {
-            'action': 'genre',
-            'value': '28'
-          }
-        })
-      });
-      const result = await response.json()
-      setMovies((prevMovies) => [...prevMovies, ...Object.values(result)]);
+      let data = {}
+      Const.categoryList.map(async (section, index) => {
+        const response = await fetch(`/api/movies`,{
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: {
+              'action': section?.action,
+              'value': section?.value
+            }
+          })
+        });
+        const result = await response.json()
+        data[section.title] = Object.values(result)
+        setMovies((prevMovies) => [...prevMovies, data]);
+      })
     }
     
     React.useMemo(init,[])
@@ -53,32 +59,52 @@ export default () => {
     return (
         <React.Fragment>
           {
-            movies?.length > 0 && <CustomSlider {...{movies}}/>
+            movies?.length >= 4 && <CustomSlider {...{movies}}/>
           }
         </React.Fragment>
     )
 }
 
-const CustomSlider = ({movies}) => {  
+/**
+ * Sliders Sections
+ */
+const CustomSlider = ({movies}) => {
     return (
-      <Box className="container-sections">
-        <div style={styles.containerSlider}>
-            <Typography color="white" sx={{ fontWeight: 700}} variant="h4" gutterBottom>
-              Popular
-            </Typography>
-            <Slider {...Const.settings}>
-                {movies.map((element, index) => (
-                    <MediaCard {...{element,index}} key={index} />
-                ))}
-            </Slider>
-        </div>
+      <Box sx={styles.sliderContainerPrimary}>
+        {
+          movies.map((section, index) => {
+            return (
+              <Box className="container-sections" key={index}>
+                <div style={styles.containerSlider}>
+                    <Typography color="white" sx={{ fontWeight: 700}} variant="h4" gutterBottom>
+                      {Object.keys(movies[index])[index]}
+                    </Typography>
+                    <Slider {...Const.settings}>
+                        {(Object.values(movies[index])[index]).map((element, index) => (
+                            <MediaCard {...{element,index}} key={index} />
+                        ))}
+                    </Slider>
+                </div>
+            </Box>
+            )
+          })
+        }
       </Box>
-    );
+  )
 };
 
+/***
+ * Card Slider
+ */
 const MediaCard = ({element}) => {
+  const router = useRouter();
+
+  const goToMovieDetails = (id) => {
+    router.push(`/movie/${id}`);
+  };
+
   return (
-    <Card sx={styles.containerCard}>
+    <Card sx={styles.containerCard} onClick={() => goToMovieDetails(element?.id)}>
       <CardMedia
         sx={{ height: 223 }}
         image={`https://image.tmdb.org/t/p/w300${element?.poster_path}`}
@@ -97,7 +123,7 @@ const MediaCard = ({element}) => {
               <Typography sx={styles.dateText} variant="body2">
                 Rating
               </Typography>
-              <CircularProgressWithLabel value={element?.vote_average}/>
+              <CircularProgressWithLabel value={element?.vote_average * 10}/>
           </Box>
           <Box>
               <Typography sx={styles.dateText} variant="body2">

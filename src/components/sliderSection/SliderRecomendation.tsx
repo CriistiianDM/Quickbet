@@ -24,18 +24,46 @@ import Const from './const'
 // Styles
 import { styles } from './styles.ts'
 
+// Use Next
+import { useRouter } from 'next/router';
+
 /**
  * Banner
  */
-export default () => {
+export default ({ id }) => {
+    const [movies, setMovies] = React.useState([])
+
+    const init = async () => {
+        if (id === undefined) return
+        const response = await fetch(`/api/movies`,{
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: {
+              'action': 'recomendation',
+              'value': id
+            }
+          })
+        });
+        const result = await response.json()
+        setMovies((prevMovies) => [...prevMovies, ...Object.values(result)]);
+    }
+    
+    React.useMemo(init,[id])
+
     return (
         <React.Fragment>
-            <CustomSlider />
+          {
+            movies?.length > 0 && <CustomSlider movies={movies} />
+          }
         </React.Fragment>
     )
 }
 
-const CustomSlider = () => {  
+const CustomSlider = ({ movies }) => {  
+    console.log(movies)
     return (
       <Box className="container-recomendations">
         <Box 
@@ -47,7 +75,7 @@ const CustomSlider = () => {
               Recommendations
             </Typography>
             <Slider {...Const.settingsRecommendation}>
-                {Const.sliders.map((element, index) => (
+                {movies.map((element, index) => (
                     <MediaCard {...{element,index}} key={index} />
                 ))}
             </Slider>
@@ -57,15 +85,22 @@ const CustomSlider = () => {
 };
 
 const MediaCard = ({element}) => {
+  const router = useRouter();
+
+  const goToMovieDetails = (id) => {
+    router.push(`/movie/${id}`);
+  };
+
   return (
     <Card 
+      onClick={() => goToMovieDetails(element?.id)}
       sx={...{
               ...styles.containerCard,
               ...styles.containerCardRecommendation
       }}>
       <CardMedia
         sx={{ height: 223 }}
-        image={element.img}
+        image={`https://image.tmdb.org/t/p/w780${element?.poster_path}`}
         title="green iguana"
       />
       <CardContent sx={styles.contentCard}>
